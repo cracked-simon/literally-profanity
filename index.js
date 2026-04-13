@@ -24,6 +24,10 @@ if (literallySource.trim() != '') {
 
 console.log(`Fetched Source: ./literally-words.txt - Found ${literallySource.length} words`);
 
+let removeWords = fs.readFileSync('./literally-remove-words.txt', {encoding:'utf8', flag:'r'});
+removeWords = new Set(removeWords.trim().split("\n").map(w => w.toLowerCase()));
+console.log(`Loaded ${removeWords.size} words to remove from literally-remove-words.txt`);
+
 let list = literallySource;
 
 async function main() {
@@ -48,7 +52,7 @@ async function main() {
             });
     }))
         .then(() => {
-            const finalList = [ ...new Set(list) ];
+            const finalList = [ ...new Set(list) ].filter(w => !removeWords.has(w.toLowerCase()));
 
             fs.writeFileSync('final-list.json', JSON.stringify(finalList));
             fs.writeFileSync('final-list.txt', finalList.join('\n').trim());
