@@ -5,6 +5,7 @@
 
 ## Usage
 * Edit `literally-words.txt` to add any new profanity words
+* Edit `literally-remove-words.txt` to remove any words
 * Run `node index.js` to update `final-list.json`
 * Make sure to commit changes back to Github with updated `literally-words.txt` and `final-list.json`
 
